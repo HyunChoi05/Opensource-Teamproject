@@ -1,0 +1,18 @@
+# Python 캐시/컴파일
+__pycache__/
+*.py[cod]
+
+# 가상환경
+venv/
+
+# Jupyter Notebook 자동 저장 폴더
+.ipynb_checkpoints/
+
+# 임시 이미지 및 PDF 파일
+temp_*.png
+*.pdf
+
+# 기타 임시 파일
+*.log
+*.tmp
+.DS_Store
