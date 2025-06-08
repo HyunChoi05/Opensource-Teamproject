@@ -6,7 +6,9 @@ wikipedia.set_lang("ko")
 def get_definition(term, sentences=1):
     # 검색 결과를 요약해서 반환
     try:
-        summary = wikipedia.summary(term, sentences=sentences)
+        page = wikipedia.page(term)
+        content = page.content
+        summary = content[:1500] + "..." #앞에서 1500자까지만 가져오고 끝에 ... 붙이기
         return {"type": "definition", "content": summary}
     # 검색결과 여러개일 때
     except wikipedia.exceptions.DisambiguationError as e:
