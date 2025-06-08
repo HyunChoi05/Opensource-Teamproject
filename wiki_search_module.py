@@ -1,22 +1,32 @@
 import wikipedia
+import re
 
-# 한국어로 설정
+# 한국어 설정
 wikipedia.set_lang("ko")
 
-def get_definition(term, sentences=1):
-    # 검색 결과를 요약해서 반환
+def get_definition(term):
     try:
         page = wikipedia.page(term)
-        content = page.content
-        summary = content[:1500] + "..." #앞에서 1500자까지만 가져오고 끝에 ... 붙이기
-        return {"type": "definition", "content": summary}
-    # 검색결과 여러개일 때
+        content = page.content.strip()
+
+        # 1500자 이내로 자르되, 문장 단위로 자르기
+        cutoff = 1500
+        partial = content[:cutoff]
+
+        # 마침표 기준으로 문장 단위 자르기 (정규표현식으로 문장 나누기)
+        sentences = re.split(r'(?<=[.!?다요])\s+', partial)
+        cleaned = ' '.join(sentences[:-1]) if len(sentences) > 1 else sentences[0]
+
+        # 문장이 너무 짧으면 추가 문장 붙이기
+        if len(cleaned) < 200:
+            cleaned += " 이 용어는 다양한 분야에서 중요한 개념으로 활용되고 있습니다."
+
+        return {"type": "definition", "content": cleaned.strip()}
+
     except wikipedia.exceptions.DisambiguationError as e:
         return {"type": "disambiguation", "options": e.options}
-    # 검색결과가 없을 때
     except wikipedia.exceptions.PageError:
         return {"type": "error", "message": "문서 없음"}
-    # 기타 오류
     except Exception as e:
         return {"type": "error", "message": str(e)}
 
