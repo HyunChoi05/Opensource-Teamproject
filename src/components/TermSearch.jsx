@@ -13,7 +13,7 @@ export default function TermSearch() {
     setResult(null);
 
     try {
-      const response = await fetch(`http://localhost:5000/api/wiki?term=${encodeURIComponent(term)}`);
+      const response = await fetch(`http://localhost:5001/api/wiki?term=${encodeURIComponent(term)}`);
       const data = await response.json();
       setResult(data);
     } catch (err) {
