@@ -12,7 +12,7 @@ export default function SummaryInput({ onSummarize }) {
   const summarizeText = async (inputText) => {
     try {
       setLoading(true);
-      const response = await fetch("http://localhost:5000/api/summarize", {
+      const response = await fetch("http://localhost:5001/api/summarize", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ text: inputText, mode }),
