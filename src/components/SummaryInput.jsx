@@ -64,7 +64,7 @@ export default function SummaryInput({ onSummarize }) {
 
       try {
         setLoading(true);
-        const response = await fetch("http://localhost:5000/api/summarize/pdf", {
+        const response = await fetch("http://localhost:5001/api/summarize/pdf", {
           method: "POST",
           body: formData,
         });
@@ -90,7 +90,7 @@ export default function SummaryInput({ onSummarize }) {
 
       try {
         setLoading(true);
-        const response = await fetch("http://localhost:5000/api/summarize/image", {
+        const response = await fetch("http://localhost:5001/api/summarize/image", {
           method: "POST",
           body: formData,
         });
