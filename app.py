@@ -4,8 +4,8 @@ from textsum_module import (
     split_sentences,
     determine_top_n,
     summarize,
-    image_to_text,
-    pdf_to_text
+    image_to_text_advanced,  # (추가)대체된 함수
+    pdf_to_text_parallel      # (추가)병렬 처리 PDF 함수
 )
 import sys
 from pathlib import Path
@@ -55,7 +55,7 @@ def summarize_image_api():
     file.save(temp_path)
 
     try:
-        text = image_to_text(temp_path)
+        text = image_to_text_advanced(temp_path)
         if not text.strip():
             return jsonify({"error": "이미지에서 텍스트를 추출하지 못했습니다."}), 400
 
@@ -82,7 +82,7 @@ def summarize_pdf():
     file.save(temp_path)
 
     try:
-        text = pdf_to_text(temp_path)
+        text = pdf_to_text_parallel(temp_path)
         if not text.strip():
             return jsonify({"error": "PDF에서 텍스트를 추출하지 못했습니다."}), 400
 
